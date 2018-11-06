@@ -31,5 +31,11 @@ end
 
 post '/new' do
   content = params[:content]
+
+  if content.size <= 0
+  	@error = "Type text please"
+  	return erb :new
+  end
+
   erb "You typed: \n#{content}"
 end
