@@ -39,6 +39,7 @@ post '/new' do
   end
 
 @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
-
-  erb "You typed: \n#{content}"
+	
+	redirect to '/'
+  
 end
