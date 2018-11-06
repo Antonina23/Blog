@@ -1,5 +1,5 @@
 <h4>Post details:</h4>
-
+<br />
 	<p>
 		<br />
 		<%= @row['content'] %>
@@ -8,7 +8,19 @@
 		Added at <%= @row['created_date'] %>
 	</p>
 <br />
-	<h4>Comments:</h4>
+<br />
+
+<h4>Comments:</h4>
+<br />
+<% @comments.each do |comment| %>
+	<p>
+		<%= comment['content'] %>
+		<br />
+		<spam style="font-size: 75%; color: #999"> Added at <%= comment['created_date'] %></spam>
+	</p>
+	<hr />
+<% end %>
+
 	<p>
 		<form action="/details/<%= @row['id'] %>" method="POST">
   		<textarea name="content" class="form-control" rows="6" placeholder="Type your comment here"></textarea>
