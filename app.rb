@@ -59,12 +59,20 @@ end
 
 # выводим информацию о посте
 get '/details/:post_id' do
+
 # получаем переменную из url`a
   post_id = params[:post_id]
+
 # получаем список постов (у нас будет только 1 пост показан)
   results = @db.execute 'select * from Posts where id = ?', [post_id]
+
 # выбираем этот 1 пост в переменную @row
   @row = results[0]
+
+# выбираем комментарии для нашего определенного поста
+	@comments = @db.execute 'select * from Comments 
+				where post_id = ? order by id', [post_id]
+
 # вовзращаем представление details erb
   erb :details
 end
