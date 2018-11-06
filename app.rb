@@ -50,7 +50,9 @@ post '/new' do
   	return erb :new
   end
 
-@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
+# сохранение данных в БД
+@db.execute 'insert into Posts (content, created_date) 
+			values (?, datetime())', [content]
 	
 	redirect to '/'
 end
@@ -70,9 +72,18 @@ end
 # обработчик post-запроса /details/..(4,2,222..)
 # браузер отправляет данные на сервер, а мы их принимаем
 post '/details/:post_id' do
+
 # получаем переменную из url`a	
 	post_id = params[:post_id]
+
 # получаем переменную из post-запроса
   	content = params[:content]
-  	erb "You typed comment #{content} for post #{post_id}"
+
+# сохранение данных в БД
+# сколько знаков ? - столько и элементов в массиве
+@db.execute 'insert into Comments (content, created_date, post_id)
+			 values (?, datetime(), ?)', [content, post_id]
+ 
+# перенаправляем на страницу поста
+	redirect to('/details/' + post_id)
 end
