@@ -87,6 +87,10 @@ post '/details/:post_id' do
 # получаем переменную из post-запроса
   	content = params[:content]
 
+	if content.size <= 0
+  	@error = "Type text please"
+  	return erb "Error"
+  	end
 # сохранение данных в БД
 # сколько знаков ? - столько и элементов в массиве
 @db.execute 'insert into Comments (content, created_date, post_id)
